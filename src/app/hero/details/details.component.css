@@ -1,0 +1,24 @@
+.wrap-details {
+    padding: 10px;
+    margin: 10px;
+}
+
+:host {
+    display: block;
+    border: 1px solid black;
+}
+
+:host(.active) {
+    border-width: 3px;
+    border: 1px solid green;
+}
+
+
+:host(.selected) {
+    border-width: 5px;
+    border: 1px solid green;
+}
+
+:host-context(.selected) p {
+    background-color: #eef;
+}
