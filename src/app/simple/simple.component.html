@@ -1,0 +1,12 @@
+<div [dragula]='"second-bag"' style="border: 1px solid red; padding: 10px;">
+  <div>As soon as you start dragging an element, a <code>drag</code> event is fired</div>
+  <div>Whenever an element is cloned because <code>copy: true</code>, a <code>cloned</code> event fires</div>
+  <div class="ex-moved">A <code>cancel</code> event is fired when an element would be dropped onto an invalid target, but retains its original placement instead</div>
+</div>
+<div style="border: 1px solid green; padding: 10px; margin-top: 50px;">
+  <p>Not dragula!</p>
+</div>
+<div [dragula]='"second-bag"' style="border: 1px solid blue; padding: 10px; margin-top: 50px;">
+  <div class="ex-moved">If the element gets removed from the DOM as a result of dropping outside of any containers, a <code>remove</code> event gets fired</div>
+</div>
+
