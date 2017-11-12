@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataProvider } from './data.provider';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app',
@@ -8,5 +9,5 @@ import { DataProvider } from './data.provider';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public live: boolean = true;
 }
