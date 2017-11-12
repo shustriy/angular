@@ -1,0 +1,12 @@
+<div class="nested">
+  <div>
+    <b>The Third Component</b> <i>updated at {{ getSeconds() }}s</i>
+    <br>Local counter = {{ counter.value }}
+    <br>First counter = {{ firstCounter }}
+    <br>Second counter = {{ secondCounter }}
+  </div>
+  <div>
+    <button (click)="increaseCounter()">Local + 1</button>
+  </div>
+  <app-fourth [parentCounter]="counter"></app-fourth>
+</div>
