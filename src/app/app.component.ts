@@ -1,8 +1,9 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DataProvider } from './data.provider';
 
 @Component({
   selector: 'app',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DataProvider],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

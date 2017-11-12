@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CmpComponent } from './cmp.component';
+import { GiantListComponent } from './giant-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CmpComponent
+    CmpComponent,
+    GiantListComponent
   ],
   imports: [
     BrowserModule
