@@ -1,10 +1,22 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
+<div (mousemove)="onMouseMove($event)">
+  <div style="text-align:center">
+    <h1>
+      Welcome To {{title}}!
+    </h1>
+  </div>
+  <dragula-option [bagName]="'dragula1'">
+    <div class="dragula-stuff">As soon as you start dragging an element, a <code>drag</code> event is fired</div>
+    <div class="dragula-stuff">Whenever an element is cloned because <code>copy: true</code>, a <code>cloned</code> event fires</div>
+    <div class="dragula-stuff">A1</div>
+    <div class="dragula-stuff">B1</div>
+    <div class="dragula-stuff">C1</div>
+    <div class="dragula-stuff">D1</div>
+    <div class="dragula-stuff">E1</div>
+    <div class="dragula-stuff">F1</div>
+    <div class="dragula-stuff ex-moved">A <code>cancel</code> event is fired when an element would be dropped onto an invalid target, but retains its original placement instead</div>
+  </dragula-option>
+  <h2>Other Bag1 </h2>
+  <dragula-option [bagName]="'dragula1'" styles="width: 280px">
+  </dragula-option>
 </div>
-<h2>Here are some links to help you start: </h2>
-<dragula-option [bagName]="'dragula2'">
-  <dragula-option [bagName]="'dragula1'"></dragula-option>
-</dragula-option>

@@ -2,3 +2,9 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.dragula-wrap {
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px;
+}

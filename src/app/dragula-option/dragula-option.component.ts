@@ -33,10 +33,10 @@ export class DragulaOptionComponent implements OnInit {
           return true; // elements are always draggable by default
         },
         accepts: function (el, target, source, sibling) {
-          me.clearBackground();
-          console.log('accepts', el, target, source, sibling, sibling.style);
-          el.style.background = 'blue';
-          sibling.style.background = '#757575';
+          // me.clearBackground();
+          // console.log('accepts', el, target, source, sibling, sibling.styles);
+          // el.styles.background = 'blue';
+          // sibling.styles.background = '#757575';
           return true; // elements can be dropped in any of the `containers` by default
         },
         invalid: function (el, handle) {

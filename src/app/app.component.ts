@@ -29,6 +29,13 @@ export class AppComponent implements OnInit{
     //     }
     //   });
     // }
+    this.dragulaService.drag.subscribe((attributes) => {
+      console.log('drag', attributes);
+    });
+  }
+
+  public onMouseMove(event: MouseEvent) {
+    console.log('onMouseMove', event);
   }
 
 
