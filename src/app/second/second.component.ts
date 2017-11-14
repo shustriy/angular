@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-second',
   templateUrl: './second.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SecondComponent {
   public counter = 0;
@@ -16,7 +16,7 @@ export class SecondComponent {
   @Input() firstCounter;
 
   constructor(private cd: ChangeDetectorRef) {
-    this.cd.detach();
+    //this.cd.detach();
   }
 
   public increaseCounter() {

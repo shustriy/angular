@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-first',
   templateUrl: './first.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FirstComponent {
   public counter = 0;

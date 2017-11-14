@@ -21,7 +21,7 @@ export class FourthComponent {
     console.log('doCheck');
     if (this.parentCounter.value > 5) {
       this.last = this.parentCounter.value;
-      this.cd.markForCheck();
+      //this.cd.markForCheck();
     }
   }
 

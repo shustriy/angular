@@ -8,7 +8,7 @@ import {
 @Component({
   selector: 'app-third',
   templateUrl: './third.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThirdComponent {
   public counter = { value: 0 };
@@ -17,7 +17,7 @@ export class ThirdComponent {
 
   constructor(private cd: ChangeDetectorRef) {
     setTimeout(() => {
-      this.cd.detectChanges();
+      //this.cd.detectChanges();
       console.log('detect');
     }, 3000);
   }
