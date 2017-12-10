@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
-import { AppStore } from './services/app.store';
+import { Injectable } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent {
-  title = 'app';
+export const ADD_TODO = 'ADD_TODO';
+export const TOGGLE_TODO = 'TOGGLE_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const SET_CURRENT_FILTER = 'SET_CURRENT_FILTER';
 
-  constructor(
-    public appStore: AppStore
-  ) {
+@Injectable()
+export class TodoActions {
 
-    this.appStore.store.dispatch({
-      type: 'ADD_TODO',
-      text: 'Read the docs'
-    })
+  private nextToDoId: number;
 
-    console.log(this.appStore.store.getState());
+  constructor() {
+    this.nextToDoId = 0;
   }
+
+  addTodo(text){
+    return {
+      type: ADD_TODO,
+      id: this.nextToDoId++,
+      text: text,
+      completed: true
+    };
+  };
 }

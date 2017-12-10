@@ -1,12 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 import { AppStore } from './services/app.store';
+import { AppComponent } from './app.component';
+import { AddTodoComponent } from './components/add-todo.component';
+import { TodoComponent } from './components/todo.component';
+import { TodoListComponent } from './components/todo-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
+    AppComponent,
+    AddTodoComponent,
+    TodoComponent,
+    TodoListComponent
+],
   imports: [
     BrowserModule
   ],
