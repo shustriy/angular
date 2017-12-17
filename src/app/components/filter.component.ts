@@ -6,12 +6,12 @@ import { TodoActions } from '../services/todo.actions';
 import { Todo } from '../services/todo.interface';
 
 @Component({
-  selector: 'todo',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css'],
+  selector: 'filter',
+  templateUrl: './filter.component.html',
+  styleUrls: ['./filter.component.css'],
   providers: [TodoActions],
 })
-export class TodoComponent {
+export class FilterComponent {
 
   private unsubscribe: Observable<any>;
   @Input() public id: number;
