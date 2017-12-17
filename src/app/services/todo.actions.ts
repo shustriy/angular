@@ -22,4 +22,11 @@ export class TodoActions {
       completed: true
     };
   };
+
+  toggleTodo(id) {
+    return {
+      type: TOGGLE_TODO,
+      id: id
+    };
+  }
 }

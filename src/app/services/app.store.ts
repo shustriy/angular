@@ -15,6 +15,21 @@ export class AppStore {
   private appStore: any;
 
   constructor() {
+
+    let toggleTodo = (todos, action) => {
+      return todos.map((todo) => {
+        if (todo.id != action.id) {
+          return todo;
+        }
+
+        return {
+          id: action.id,
+          text: todo.text,
+          completed: !todo.completed
+        };
+      });
+    };
+
     let rootReducer = (state: TodoState = initialState, action) => {
       switch (action.type) {
         case TodoActions.ADD_TODO:
@@ -26,6 +41,11 @@ export class AppStore {
             }),
             currentFilter: state.currentFilter
           };
+        case TodoActions.TOGGLE_TODO:
+          return {
+            todos: toggleTodo(state.todos, action),
+            currentFilter: state.currentFilter
+          }
         default:
           return state
       }
