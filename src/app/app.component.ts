@@ -13,10 +13,10 @@ export class AppComponent {
     public appStore: AppStore
   ) {
 
-    this.appStore.store.dispatch({
-      type: 'ADD_TODO',
-      text: 'Read the docs'
-    })
+    // this.appStore.store.dispatch({
+    //   type: 'ADD_TODO',
+    //   text: 'Read the docs'
+    // })
 
     console.log(this.appStore.store.getState());
   }

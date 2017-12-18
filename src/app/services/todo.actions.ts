@@ -29,4 +29,11 @@ export class TodoActions {
       id: id
     };
   }
+
+  setCurrentFilter(filter) {
+    return {
+      type: SET_CURRENT_FILTER,
+      filter: filter
+    };
+  }
 }

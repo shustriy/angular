@@ -1,4 +1,4 @@
-<li [style.textDecoration] = "completed?'line-through':''" (click)="onToggleTodo()">
-    <ng-content></ng-content>
-</li>
-
+<a href="#" (click)="applyFilter(filter);"
+   [ngClass]="{'active': active, 'inactive': !active}">
+   <ng-content></ng-content>
+</a>
