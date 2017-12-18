@@ -14,19 +14,23 @@ import { Todo } from '../services/todo.interface';
 export class FilterLinkComponent {
 
   private unsubscribe: Observable<any>;
-  @Input() public id: number;
-  @Input() public completed: boolean;
+  @Input() public filter: string;
+  public active: boolean;
 
   constructor(
     protected appStore: AppStore,
     protected todoActions: TodoActions
   ) {
-
+    this.unsubscribe = this.appStore.store
+      .subscribe(() => this.updateActive());
   }
 
-  public onToggleTodo() {
-    console.log('onToggleTodo');
-    let id = this.id;
-    this.appStore.store.dispatch(this.todoActions.toggleTodo(id));
+  public applyFilter(filter) {
+    console.log('applyFilter', filter);
+    this.appStore.store.dispatch(this.todoActions.setCurrentFilter(filter));
+  }
+
+  public updateActive() {
+    this.active = (this.filter == this.appStore.store.getState().currentFilter);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import { AppStore } from '../services/app.store';
@@ -11,10 +11,11 @@ import { Todo } from '../services/todo.interface';
   styleUrls: ['./todo-list.component.css'],
   providers: [TodoActions],
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnDestroy {
 
   private unsubscribe: Observable<any>;
-  private todos: Array<Todo>;
+  public todos: Array<Todo>;
+  public currentFilter: string;
 
   constructor(
     protected appStore: AppStore
@@ -23,8 +24,11 @@ export class TodoListComponent {
       this.unsubscribe = this.appStore.store.subscribe(() => {
         console.log('TodoListComponent subscription');
         let state = this.appStore.store.getState();
+        this.currentFilter = state.currentFilter;
         this.todos = state.todos;
         console.log('State', state);
       });
   }
+
+  ngOnDestroy() { }
 }

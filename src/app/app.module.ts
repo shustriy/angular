@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 import { AddTodoComponent } from './components/add-todo.component';
 import { TodoComponent } from './components/todo.component';
 import { TodoListComponent } from './components/todo-list.component';
-import { FilterComponent } from './components/filter.component';
+import { FiltersComponent } from './components/filters.component';
 import { FilterLinkComponent } from './components/filter-link.component';
+import { VisibleTodosPipe } from './services/visible-todos.pipe';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import { FilterLinkComponent } from './components/filter-link.component';
     AddTodoComponent,
     TodoComponent,
     TodoListComponent,
-    FilterComponent,
-    FilterLinkComponent
+    FiltersComponent,
+    FilterLinkComponent,
+    VisibleTodosPipe
 ],
   imports: [
     BrowserModule

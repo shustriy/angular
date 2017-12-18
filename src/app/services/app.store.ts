@@ -31,6 +31,7 @@ export class AppStore {
     };
 
     let rootReducer = (state: TodoState = initialState, action) => {
+      console.log('rootReducer', action);
       switch (action.type) {
         case TodoActions.ADD_TODO:
           return {
@@ -45,6 +46,11 @@ export class AppStore {
           return {
             todos: toggleTodo(state.todos, action),
             currentFilter: state.currentFilter
+          }
+        case TodoActions.SET_CURRENT_FILTER:
+          return {
+            todos: state.todos,
+            currentFilter: action.filter
           }
         default:
           return state
