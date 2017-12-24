@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import { AppStore } from '../services/app.store';
@@ -11,7 +11,7 @@ import { Todo } from '../services/todo.interface';
   styleUrls: ['./filter-link.component.css'],
   providers: [TodoActions],
 })
-export class FilterLinkComponent {
+export class FilterLinkComponent implements OnInit {
 
   private unsubscribe: Observable<any>;
   @Input() public filter: string;
@@ -23,6 +23,10 @@ export class FilterLinkComponent {
   ) {
     this.unsubscribe = this.appStore.store
       .subscribe(() => this.updateActive());
+  }
+
+  public ngOnInit() {
+    this.updateActive();
   }
 
   public applyFilter(filter) {
