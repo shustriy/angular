@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { createStore } from 'redux';
+import * as Immutable from 'immutable';
 
 import * as TodoActions from './todo.actions';
 import { TodoState } from './todo-state.interface';
+import { Todo } from './todo.model';
 
 const initialState: TodoState = {
-  todos: [],
+  todos: Immutable.List([]),
   currentFilter: 'SHOW_ALL'
 }
 
@@ -18,15 +20,15 @@ export class AppStore {
 
     let toggleTodo = (todos, action) => {
       return todos.map((todo) => {
-        if (todo.id != action.id) {
+        if (todo.get('id') != action.id) {
           return todo;
         }
 
-        return {
+        return Immutable.Map({
           id: action.id,
-          text: todo.text,
-          completed: !todo.completed
-        };
+          text: todo.get('text'),
+          completed: !todo.get('completed')
+        });
       });
     };
 
@@ -34,12 +36,14 @@ export class AppStore {
       console.log('rootReducer', action);
       switch (action.type) {
         case TodoActions.ADD_TODO:
-          return {
-            todos: state.todos.concat({
+          let todo: Todo = Immutable.Map({
               id: action.id,
               text: action.text,
               completed: action.completed
-            }),
+          });
+          state.todos = state.todos.push(todo);
+          return {
+            todos: state.todos,
             currentFilter: state.currentFilter
           };
         case TodoActions.TOGGLE_TODO:

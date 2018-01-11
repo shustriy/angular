@@ -1,6 +1,7 @@
-import { Todo } from './todo.interface';
+import { List } from 'immutable';
+import { Todo } from './todo.model';
 
 export interface TodoState {
-  todos: Array<Todo>,
+  todos: List<Todo>,
   currentFilter: string
 }

@@ -18,9 +18,9 @@ export class VisibleTodosPipe implements PipeTransform {
   private getVisibleTodos(todos, filter){
     switch (filter) {
       case 'SHOW_ACTIVE':
-        return todos.filter(t => !t.completed);
+        return todos.filter(t => !t.get('completed'));
       case 'SHOW_COMPLETED':
-        return todos.filter(t => t.completed);
+        return todos.filter(t => t.get('completed'));
       case 'SHOW_ALL':
       default:
         return todos;

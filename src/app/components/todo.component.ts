@@ -3,7 +3,6 @@ import {Observable} from 'rxjs/Observable';
 
 import { AppStore } from '../services/app.store';
 import { TodoActions } from '../services/todo.actions';
-import { Todo } from '../services/todo.interface';
 
 @Component({
   selector: 'todo',
