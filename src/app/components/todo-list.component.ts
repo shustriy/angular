@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import { List } from 'immutable';
 
 import { AppStore } from '../services/app.store';
 import { TodoActions } from '../services/todo.actions';
-import { Todo } from '../services/todo.interface';
+import { Todo } from '../services/todo.model';
 
 @Component({
   selector: 'todo-list',
@@ -14,7 +15,7 @@ import { Todo } from '../services/todo.interface';
 export class TodoListComponent implements OnDestroy {
 
   private unsubscribe: Observable<any>;
-  public todos: Array<Todo>;
+  public todos: List<Todo>;
   public currentFilter: string;
 
   constructor(
@@ -26,7 +27,7 @@ export class TodoListComponent implements OnDestroy {
         let state = this.appStore.store.getState();
         this.currentFilter = state.currentFilter;
         this.todos = state.todos;
-        console.log('State', state);
+        console.log('State todos2', state.todos.toArray());
       });
   }
 

@@ -1,4 +1,4 @@
 <ul>
-    <todo *ngFor="let todo of todos | visibleTodos: currentFilter" [id]="todo.id" [completed]="todo.completed">{{todo.text}}</todo>
+    <todo *ngFor="let todo of todos | visibleTodos: currentFilter" [id]="todo.get('id')" [completed]="todo.get('completed')">{{todo.get('text')}}</todo>
 </ul>
 
