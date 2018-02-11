@@ -16,10 +16,13 @@ export class AppStore {
       console.log('counterReducer', action, state);
       switch (action.type) {
         case CounterActions.INCREMENT:
-          return state++;
+          console.log('INC');
+          return ++state;
         case CounterActions.DECREMENT:
-          return state--;
+          console.log('DEC');
+          return --state;
         default:
+          console.log('DEFAULT');
           return state
       }
     };
