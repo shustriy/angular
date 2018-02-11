@@ -16,10 +16,11 @@ export class CounterComponent {
     protected appStore: AppStore
   ) {
     console.log('constructor', this.appStore.store);
-    this.appStore.store.subscribe((store) => {
-
+    this.number = 0;
+    this.appStore.store.subscribe(() => {
+      this.number = this.appStore.store.getState();
+      console.log('subscribe', this.appStore.store.getState());
     });
-    this.number = this.appStore.store;
   }
 
   public onIncrement() {
