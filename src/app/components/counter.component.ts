@@ -30,10 +30,7 @@ export class CounterComponent {
 
   public onIncrementOdd() {
     console.log('onIncrementOdd', this.appStore.store.getState());
-    let number: number = this.appStore.getNumber();
-    if ((number % 2) != 0) {
-      this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
-    }
+    this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
   }
 
   public onIncrementAsync() {

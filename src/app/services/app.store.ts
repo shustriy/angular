@@ -1,6 +1,10 @@
+import 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { createStore } from 'redux';
-import { combineReducers } from 'redux'
+import { createStore, applyMiddleware } from 'redux';
+import { combineReducers } from 'redux';
+import { combineEpics } from 'redux-observable';
+import { createEpicMiddleware } from 'redux-observable';
 import * as Immutable from 'immutable';
 
 import * as CounterActions from './counter.actions';
@@ -21,16 +25,27 @@ export class AppStore {
         case CounterActions.DECREMENT:
           console.log('DEC');
           return --state;
-        case CounterActions.INCREMENT_ODD:
-          console.log('INC_ODD');
-          return (state % 2 != 0) ? ++state : state;
         default:
           console.log('DEFAULT');
           return state;
       }
     };
 
-    this.appStore = createStore(counterReducer);
+    const incrementOddEpic = (action$, store) =>
+      action$.ofType(CounterActions.INCREMENT_ODD)
+          .filter((store.getState().number % 2) !== 0)
+          .map(() => ({type: CounterActions.INCREMENT}));
+
+    const rootEpic = combineEpics(
+        incrementOddEpic
+    );
+
+    const epicMiddleware = createEpicMiddleware(rootEpic);
+
+    this.appStore = createStore(
+        counterReducer,
+        applyMiddleware(epicMiddleware)
+    );
   }
 
   get store() {
