@@ -24,12 +24,28 @@ export class CounterComponent {
   }
 
   public onIncrement() {
-    console.log('onIncrement', this.appStore.store);
+    console.log('onIncrement', this.appStore.store.getState());
     this.appStore.store.dispatch({ type: CounterActions.INCREMENT });
   }
 
+  public onIncrementOdd() {
+    console.log('onIncrementOdd', this.appStore.store.getState());
+    let number: number = this.appStore.getNumber();
+    if ((number % 2) != 0) {
+      this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
+    }
+  }
+
+  public onIncrementAsync() {
+    console.log('onIncrementAsync', this.appStore.store.getState());
+    setTimeout(() => this.appStore.store.dispatch({ type: CounterActions.INCREMENT }), 1000);
+  }
+
   public onDecrement() {
-    console.log('onDecrement', this.appStore.store);
-    this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
+    console.log('onDecrement', this.appStore.store.getState());
+    let number: number = this.appStore.getNumber();
+    if (number>0) {
+      this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
+    }
   }
 }

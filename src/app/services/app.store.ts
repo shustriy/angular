@@ -21,9 +21,12 @@ export class AppStore {
         case CounterActions.DECREMENT:
           console.log('DEC');
           return --state;
+        case CounterActions.INCREMENT_ODD:
+          console.log('INC_ODD');
+          return (state % 2 != 0) ? ++state : state;
         default:
           console.log('DEFAULT');
-          return state
+          return state;
       }
     };
 
@@ -32,6 +35,10 @@ export class AppStore {
 
   get store() {
     return this.appStore;
+  }
+
+  public getNumber() {
+    return this.appStore.getState();
   }
 
 }
