@@ -6,6 +6,15 @@ import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import { createEpicMiddleware } from 'redux-observable';
 import * as Immutable from 'immutable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/dom/ajax';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/filter';
 
 import * as CounterActions from './counter.actions';
 
@@ -33,7 +42,10 @@ export class AppStore {
 
     const incrementOddEpic = (action$, store) =>
       action$.ofType(CounterActions.INCREMENT_ODD)
-          .filter((store.getState().number % 2) !== 0)
+          .filter(()=> {
+            console.log('epic filter number', store.getState());
+            return (store.getState() % 2) !== 0
+          })
           .map(() => ({type: CounterActions.INCREMENT}));
 
     const rootEpic = combineEpics(
