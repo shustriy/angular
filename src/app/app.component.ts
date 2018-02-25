@@ -40,7 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit {
             .switchMap(() => Rx.Observable
               .of(4,2,3,8)
               .map(val => ',' + val)
-            )
-            .subscribe((x) => console.log('x', x));
+            );
+    const btnSubscriber = btnObservable.subscribe((x) => console.log('x', x));
+    console.log('btnObservable', btnObservable);
+    console.log('btnSubscriber', btnSubscriber);
   }
 }
