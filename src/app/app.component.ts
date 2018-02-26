@@ -18,7 +18,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     //this.runObservabeMapWithTake();
     //this.runObservableSwitchMap();
     //this.runSubjectFromGuide();
-    this.runSubjectObservable();
+    //this.runSubjectObservable();
+    this.runSwitchMapBoolean();
   }
 
   public ngAfterViewInit() {
@@ -110,5 +111,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       // Clean up
       subject.complete();
     }, 5000);
+  }
+
+  public runSwitchMapBoolean() {
+    Rx.Observable.of(1,3,4,5,6,7,8)
+        .switchMap((x) => Rx.Observable
+            .of(4,2,3,8)
+            .map(val => {
+              console.log('x, val', x, val);
+              return x === val;
+            })
+        )
+        .distinctUntilChanged()
+        .subscribe((x) => console.log(x));
   }
 }
