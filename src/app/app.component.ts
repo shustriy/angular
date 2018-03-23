@@ -19,7 +19,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     //this.runObservableSwitchMap();
     //this.runSubjectFromGuide();
     //this.runSubjectObservable();
-    this.runSwitchMapBoolean();
+    // this.runSwitchMapBoolean();
+    // this.runSwitchMap();
+    this.runFlatMap();
   }
 
   public ngAfterViewInit() {
@@ -125,4 +127,30 @@ export class AppComponent implements OnInit, AfterViewInit {
         .distinctUntilChanged()
         .subscribe((x) => console.log(x));
   }
+
+  public runFlatMap() {
+    const flatMapButton = document.getElementById('flatMap');
+    const startObs = Rx.Observable.fromEvent(flatMapButton, 'click');
+    const intervalObs = Rx.Observable.interval(1000);
+
+    startObs
+      .flatMap((evt) => intervalObs)
+      .takeUntil(Rx.Observable.timer(10000))
+      .subscribe(
+        function (x) { console.log('Next: ' + x); },
+        function (err) { console.log('Error: ' + err); },
+        function () { console.log('Completed'); }
+      );
+
+  }
+
+  // public runSwitchMap() {
+  //   const flatMapButton = document.getElementById('flatMap');
+  //   const startObs = Rx.Observable.fromEvent(flatMapButton, 'click');
+  //   const intervalObs = Rx.Observable.interval(1000).takeUntil(Rx.Observable.timer(10000));
+  //
+  //   startObs
+  //     .flatMap((evt) => intervalObs)
+  //     .subscribe((x) => console.log('flatMap', x));
+  // }
 }
