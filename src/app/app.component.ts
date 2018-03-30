@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as Rx from 'rxjs/Rx';
+import { mapTo } from "rxjs/operator/mapTo";
 
 @Component({
   selector: 'app-root',
@@ -15,13 +16,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log('ngOnInit');
 
     //this.runObservableMap();
-    //this.runObservabeMapWithTake();
+    //this.runObservableMapWithTake();
     //this.runObservableSwitchMap();
     //this.runSubjectFromGuide();
     //this.runSubjectObservable();
     // this.runSwitchMapBoolean();
     // this.runSwitchMap();
-    this.runFlatMap();
+    // this.runFlatMap();
+    this.runSwitchMapAndFlatMap();
   }
 
   public ngAfterViewInit() {
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         .subscribe((x) => console.log('x:', x));
   }
 
-  public runObservabeMapWithTake()
+  public runObservableMapWithTake()
   {
     Rx.Observable
         .interval(200)
@@ -144,13 +146,42 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
-  // public runSwitchMap() {
-  //   const flatMapButton = document.getElementById('flatMap');
-  //   const startObs = Rx.Observable.fromEvent(flatMapButton, 'click');
-  //   const intervalObs = Rx.Observable.interval(1000).takeUntil(Rx.Observable.timer(10000));
-  //
-  //   startObs
-  //     .flatMap((evt) => intervalObs)
-  //     .subscribe((x) => console.log('flatMap', x));
-  // }
+  public runSwitchMap() {
+    const flatMapButton = document.getElementById('flatMap');
+    const startObs = Rx.Observable.fromEvent(flatMapButton, 'click');
+    const intervalObs = Rx.Observable.interval(1000).takeUntil(Rx.Observable.timer(10000));
+
+    startObs
+      .flatMap((evt) => intervalObs)
+      .subscribe((x) => console.log('flatMap', x));
+  }
+
+  public runSwitchMapAndFlatMap() {
+    let outerSwitch$ = Rx.Observable
+      .interval(1000)
+      .take(2);
+
+    let combinedSwitch$ = outerSwitch$.switchMap((x) => { // replace switchMap with flatMap and compare
+      return Rx.Observable
+        .interval(400)
+        .take(3)
+        .map(y => `outerSwitch ${x}: innerSwitch ${y}`)
+    });
+
+    combinedSwitch$.subscribe(result => console.log(` ${result} `));
+
+    setTimeout(() => {
+      let outerFlat$ = Rx.Observable
+        .interval(1000)
+        .take(2);
+
+      let combinedFlat$ = outerFlat$.flatMap((x) => { // replace switchMap with flatMap and compare
+        return Rx.Observable
+          .interval(400)
+          .take(3)
+          .map(y => `outerFlat ${x}: innerFlat ${y}`)
+      });
+      combinedFlat$.subscribe(result => console.log(` ${result} `));
+    }, 5000);
+  }
 }
