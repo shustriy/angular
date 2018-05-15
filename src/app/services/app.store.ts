@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import { createEpicMiddleware } from 'redux-observable';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import * as Immutable from 'immutable';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/dom/ajax';
@@ -20,8 +21,6 @@ import * as CounterActions from './counter.actions';
 
 @Injectable()
 export class AppStore {
-
-  private appStore: any;
 
   constructor() {
 
@@ -42,23 +41,27 @@ export class AppStore {
 
     const incrementOddEpic = (action$, store) =>
       action$.ofType(CounterActions.INCREMENT_ODD)
-          .filter(()=> {
-            console.log('epic filter number', store.getState());
-            return (store.getState() % 2) !== 0
-          })
-          .map(() => ({type: CounterActions.INCREMENT}));
+        .filter(()=> {
+          console.log('epic filter number', store.getState());
+          return (store.getState() % 2) !== 0
+        })
+        .map(() => ({type: CounterActions.INCREMENT}));
 
     const rootEpic = combineEpics(
-        incrementOddEpic
+      incrementOddEpic
     );
 
     const epicMiddleware = createEpicMiddleware(rootEpic);
 
     this.appStore = createStore(
-        counterReducer,
+      counterReducer,
+      composeWithDevTools(
         applyMiddleware(epicMiddleware)
+      )
     );
   }
+
+  private appStore: any;
 
   get store() {
     return this.appStore;
