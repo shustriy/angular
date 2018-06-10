@@ -52,6 +52,43 @@ export class AppComponent implements OnInit {
     let x = {a: 1, b: 2, c:3, d: 4};
     console.log('getProperty', getProperty(x, "a"));
     console.log('getProperty', getProperty(x, "c"));
+
+    class BeeKeeper {
+      public hasMask: boolean;
+    }
+
+    class ZooKeeper {
+      public nametag: string;
+    }
+
+    class Animal {
+      public numLegs: number;
+    }
+
+    class Bee extends Animal {
+      keeper: BeeKeeper = new BeeKeeper();
+    }
+
+    class Lion extends Animal {
+      keeper: ZooKeeper = new ZooKeeper();
+    }
+
+    function createInstance<A extends Animal>(c: new () => A): A {
+      console.log('createInstance', c);
+      return new c();
+    }
+
+    function createInstance2<A extends Animal>(c: {new (): A;}): A {
+      console.log('createInstance2', c);
+      return new c();
+    }
+
+    console.log('createInstance(Lion).keeper', createInstance(Lion));
+    console.log('createInstance(Bee).keeper', createInstance(Bee));
+    console.log('createInstance2(Lion).keeper', createInstance2(Lion));
+    console.log('createInstance2(Bee).keeper', createInstance2(Bee));
+
+
   }
 
   public identity<T>(arg: T): T {
