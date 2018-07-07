@@ -50,6 +50,40 @@ export class AdvancedTypesComponent implements OnInit {
 
     console.log('typeof type guards => padLeft has value as a number', padLeft('px:', 3));
     console.log('typeof type guards => padLeft has value as a string', padLeft('px:', 's'));
+
+    let strNull: string = "str";
+    console.log('Nullable types => string', strNull);
+    strNull = null;
+    console.log('Nullable types => string & null', strNull);
+
+    let arrNull: Array<number> = [1,2,3,4,5];
+    console.log('Nullable types => array', arrNull);
+    arrNull = null;
+    console.log('Nullable types => array & null', arrNull);
+
+    // name!.charAt(0)
+
+    function broken(name: string | null): string {
+      function postfix(epithet: string) {
+        return name.charAt(0) + '. the' + epithet;
+      }
+
+      //name = name || 'Bob';
+      return postfix("great");
+    }
+
+    function fixed(name: string | null): string {
+      function postfix(epithet: string) {
+        return name!.charAt(0) + '. the' + epithet;
+      }
+
+      //name = name || 'Bob';
+      return postfix("great");
+    }
+
+    console.log("fixed()", fixed(null));
+    //console.log("broken()", broken(null));
+
   }
 
   public identity<T>(arg: T): T {
