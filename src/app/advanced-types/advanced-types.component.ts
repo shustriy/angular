@@ -65,7 +65,7 @@ export class AdvancedTypesComponent implements OnInit {
 
     function broken(name: string | null): string {
       function postfix(epithet: string) {
-        return name.charAt(0) + '. the' + epithet;
+        return name.charAt(0) + '. the ' + epithet;
       }
 
       //name = name || 'Bob';
@@ -74,16 +74,32 @@ export class AdvancedTypesComponent implements OnInit {
 
     function fixed(name: string | null): string {
       function postfix(epithet: string) {
-        return name!.charAt(0) + '. the' + epithet;
+        return name!.charAt(0) + '. the ' + epithet;
       }
 
       //name = name || 'Bob';
       return postfix("great");
     }
 
-    console.log("fixed()", fixed(null));
+    //console.log("fixed()", fixed(null));
     //console.log("broken()", broken(null));
 
+    // Type Aliases
+
+    type Name = string;
+    type NameResolver = () => string;
+    type NameOrResolver = Name | NameResolver;
+
+    function getName(n: NameOrResolver): Name {
+      if (typeof n === "string") {
+        return n;
+      } else {
+        return n();
+      }
+    }
+
+    console.log("NameOrResolver getName string", getName("It's string"));
+    console.log("NameOrResolver getName () => string", getName(() => "It's string"));
   }
 
   public identity<T>(arg: T): T {
