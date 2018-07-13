@@ -171,6 +171,27 @@ export class AdvancedTypesComponent implements OnInit {
     };
 
     console.log('Discriminated Unions => area', area(squareShape));
+
+    // Index types
+
+    function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+      console.log('pluck names', names);
+      return names.map(n => o[n]);
+    }
+
+    interface Person1 {
+      name: string,
+      age: number
+    }
+
+    const person: Person1 = {
+      name: 'Jarid',
+      age: 35
+    }
+
+    const strings: string[] = pluck(person, ['name']);
+    console.log('strings', strings);
+
   }
 
   public identity<T>(arg: T): T {
