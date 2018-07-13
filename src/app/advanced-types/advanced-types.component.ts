@@ -100,6 +100,77 @@ export class AdvancedTypesComponent implements OnInit {
 
     console.log("NameOrResolver getName string", getName("It's string"));
     console.log("NameOrResolver getName () => string", getName(() => "It's string"));
+
+    // Together with intersection types, we can make some pretty mind-bending types
+
+    type LinkedList<T> = T & { next: LinkedList<T>}
+
+    interface Person {
+      name: string;
+    }
+
+    const people: LinkedList<Person> = {
+      name: 'Jeff',
+      next: {
+        name: 'John',
+        next: {
+          name: 'Jim',
+          next: null
+        }
+      }
+    };
+
+    console.log('people', people);
+
+    //Numeric Literal Types
+
+    function rollDie(): 1 | 2 | 3 | 4 | 5 | 6 {
+      return 2;
+    }
+
+    type NumericType = 1 | 2 | 3 | 4 | 5 | 6;
+
+    function rollDieWithNumericType(): NumericType {
+      return 2;
+    }
+
+    console.log('rollDie', rollDie());
+    console.log('rollDieWithNumericType', rollDieWithNumericType());
+
+    // Discriminated Unions (Размеченное объединение)
+
+    interface Square {
+      kind: "square",
+      size: number
+    }
+
+    interface Rectangle {
+      kind: "rectangle",
+      width: number,
+      height: number
+    }
+
+    interface Circle {
+      kind: "circle",
+      radius: number;
+    }
+
+    type Shape = Square | Rectangle | Circle;
+
+    function area(s: Shape) {
+      switch (s.kind) {
+        case "square": return s.size * s.size;
+        case "rectangle": return s.height * s.width;
+        case "circle": return Math.PI * s.radius;
+      }
+    }
+
+    const squareShape: Shape = {
+      kind: "square",
+      size: 20
+    };
+
+    console.log('Discriminated Unions => area', area(squareShape));
   }
 
   public identity<T>(arg: T): T {
