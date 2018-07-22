@@ -192,6 +192,37 @@ export class AdvancedTypesComponent implements OnInit {
     const strings: string[] = pluck(person, ['name']);
     console.log('strings', strings);
 
+      // getProperty
+
+      function getProperty<T, K extends keyof T> (o: T, name: K): T[K] {
+          return o[name];
+      }
+
+      console.log('getProperty => name =>', getProperty(person, 'name'));
+      console.log('getProperty => age =>', getProperty(person, 'age'));
+      //console.log('getProperty => age1 =>', getProperty(person, 'age1'));
+
+      // string indexes signature
+
+      interface Map<T> {
+          [key: string]: T
+      }
+
+      const mapNumber: Map<number> = {
+          age: 3
+      };
+      console.log('Map<number>', mapNumber);
+
+      const mapString: Map<string> = {
+          name: 'John'
+      };
+
+      //const mapNotString: Map<string> = {
+      //    age: 5
+      //};
+      console.log('Map<string>', mapString);
+      console.log('Map<string>', mapNumber);
+
   }
 
   public identity<T>(arg: T): T {
