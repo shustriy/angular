@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import { AppStore } from '../services/app.store';
 import * as CounterActions from '../services/counter.actions';

@@ -3,19 +3,19 @@ import { filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux';
-import { combineEpics } from 'redux-observable';
+import {combineEpics, ofType} from 'redux-observable';
 import { createEpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as Immutable from 'immutable';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/dom/ajax';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/filter';
+import { Observable } from 'rxjs';
+import 'rxjs/ajax';
+import 'rxjs/observable/of';
+import 'rxjs/operator/catch';
+import 'rxjs/operator/debounceTime';
+import { map } from 'rxjs/operators/map';
+import 'rxjs/operator/mergeMap';
+import 'rxjs/operator/startWith';
+
 
 import * as CounterActions from './counter.actions';
 
@@ -40,18 +40,20 @@ export class AppStore {
     };
 
     const incrementOddEpic = (action$, store) =>
-      action$.ofType(CounterActions.INCREMENT_ODD)
-        .filter(()=> {
+      action$.pipe(
+        ofType(CounterActions.INCREMENT_ODD),
+        filter(()=> {
           console.log('epic filter number', store.getState());
           return (store.getState() % 2) !== 0
-        })
-        .map(() => ({type: CounterActions.INCREMENT}));
+        }),
+        map(() => ({type: CounterActions.INCREMENT}))
+      );
 
     const rootEpic = combineEpics(
       incrementOddEpic
     );
 
-    const epicMiddleware = createEpicMiddleware(rootEpic);
+    const epicMiddleware = createEpicMiddleware();
 
     this.appStore = createStore(
       counterReducer,
@@ -59,6 +61,8 @@ export class AppStore {
         applyMiddleware(epicMiddleware)
       )
     );
+
+    epicMiddleware.run(rootEpic);
   }
 
   private appStore: any;
