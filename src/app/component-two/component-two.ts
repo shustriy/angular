@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
     
     <nav>
       <a [routerLink]="['child-one']">Child One</a>
-      <a [routerLink]="['child-two']">Child Two</a>
+      <a [routerLink]="['child-two', { outlets: { 'sidebar': ['child-two'] } }]">Child Two</a>
     </nav>
     
     <div style="color: red; margin-top: 1rem;">
@@ -21,6 +21,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export default class ComponentTwo {
   private id;
+  private sub;
 
   constructor(private route: ActivatedRoute) {}
 

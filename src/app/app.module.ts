@@ -2,30 +2,35 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routes';
 
+import {Router, RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
-import ComponentOne from './component-one';
-import ComponentTwo from './component-two';
+
+import { ComponentTwoModule } from './component-two/component-two.module'
+import { ComponentOneModule } from './component-one/component-one.module'
 import ComponentAux from './component-aux';
-import ChildOne from './child-one';
-import ChildTwo from './child-two';
+
 
 @NgModule({
   imports: [
     BrowserModule,
+    RouterModule,
+    ComponentOneModule,
+    ComponentTwoModule,
     routing
   ],
   declarations: [
     AppComponent,
-    ComponentOne,
-    ComponentTwo,
-    ComponentAux,
-    ChildOne,
-    ChildTwo
+    ComponentAux
   ],
   providers: [
     appRoutingProviders
   ],
   bootstrap: [ AppComponent ]
 })
+
 export class AppModule {
+  // Diagnostic only: inspect router configuration
+  constructor(router: Router) {
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
 }
