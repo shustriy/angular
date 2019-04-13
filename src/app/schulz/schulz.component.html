@@ -1,0 +1,16 @@
+Clicked: {{number}} times
+<button type="button" class="btn btn-primary btn-sm" (click)="onIncrement()">+</button>
+<button type="button" class="btn btn-primary btn-sm" (click)="onDecrement()">-</button>
+<button type="button" class="btn btn-primary btn-sm" (click)="onIncrementOdd()">Increment if odd</button>
+<button type="button" class="btn btn-primary btn-sm" (click)="onIncrementAsync()">Increment async</button>
+
+<div class="schulz">
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let item of schulz" class="col-sm-1">
+                {{item}}
+            </div>
+        </div>
+    </div>
+</div>
+
