@@ -22,57 +22,63 @@ import * as CounterActions from './counter.actions';
 @Injectable()
 export class AppStore {
 
-  constructor() {
+    constructor() {
 
-    let counterReducer = (state: number = 0, action) => {
-      console.log('counterReducer', action, state);
-      switch (action.type) {
-        case CounterActions.INCREMENT:
-          console.log('INC');
-          return ++state;
-        case CounterActions.DECREMENT:
-          console.log('DEC');
-          return --state;
-        default:
-          console.log('DEFAULT');
-          return state;
-      }
-    };
+        let counterReducer = (state:number = 0, action) => {
+            console.log('counterReducer', action, state);
+            switch (action.type) {
+                case CounterActions.INCREMENT:
+                    console.log('INC');
+                    return ++state;
+                case CounterActions.DECREMENT:
+                    console.log('DEC');
+                    return --state;
+                default:
+                    console.log('DEFAULT');
+                    return state;
+            }
+        };
 
-    const incrementOddEpic = (action$, store) =>
-      action$.pipe(
-        ofType(CounterActions.INCREMENT_ODD),
-        filter(()=> {
-          console.log('epic filter number', store.getState());
-          return (store.getState() % 2) !== 0
-        }),
-        map(() => ({type: CounterActions.INCREMENT}))
-      );
+        const rootReducer = combineReducers({
+            counterReducer
+        });
 
-    const rootEpic = combineEpics(
-      incrementOddEpic
-    );
+        const incrementOddEpic = (action$, store) =>
+            action$.pipe(
+                ofType(CounterActions.INCREMENT_ODD),
+                filter(()=> {
+                    const state = store.getState();
+                    console.log('epic filter number', state);
+                    return (state['counterReducer'] % 2) !== 0
+                }),
+                map(() => ({type: CounterActions.INCREMENT}))
+            );
 
-    const epicMiddleware = createEpicMiddleware();
+        const rootEpic = combineEpics(
+            incrementOddEpic
+        );
 
-    this.appStore = createStore(
-      counterReducer,
-      composeWithDevTools(
-        applyMiddleware(epicMiddleware)
-      )
-    );
+        const epicMiddleware = createEpicMiddleware();
 
-    epicMiddleware.run(rootEpic);
-  }
+        this.appStore = createStore(
+            rootReducer,
+            composeWithDevTools(
+                applyMiddleware(epicMiddleware)
+            )
+        );
 
-  private appStore: any;
+        epicMiddleware.run(rootEpic);
+    }
 
-  get store() {
-    return this.appStore;
-  }
+    private appStore:any;
 
-  public getNumber() {
-    return this.appStore.getState();
-  }
+    get store() {
+        return this.appStore;
+    }
+
+    public getNumber() {
+        const state = this.appStore.getState();
+        return state['counterReducer'];
+    }
 
 }

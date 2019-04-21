@@ -11,7 +11,7 @@ import * as CounterActions from '../services/counter.actions';
 })
 export class SchulzComponent {
   public number: number;
-  public schulz: number[];
+  public schulz: number[][];
 
   constructor(
     protected appStore: AppStore
@@ -45,20 +45,23 @@ export class SchulzComponent {
       schulz = newSchulz;
     }
     console.log('schulz', schulz);
-    console.log('matrix', this.convertFlat(schulz));
-    this.schulz = schulz;
+    this.schulz = this.convertFlat(schulz);
   }
 
   public convertFlat(flat: number[]) {
-    let matrix: number[][];
+    console.log('convertFlat');
+    let matrix: number[][] = [];
     let index: number = 0;
     for (let i=0; i < 5; i++) {
       let cols = [];
       for (let j=0; j < 5; j++) {
-        cols.push(flat[index++]);
+        cols[j] = flat[index++];
       }
-      matrix.push([...cols]);
+      matrix.push(cols);
     }
+
+
+    console.log('matrix', matrix);
     return matrix;
   }
 

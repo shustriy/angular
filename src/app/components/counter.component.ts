@@ -18,7 +18,7 @@ export class CounterComponent {
     console.log('constructor', this.appStore.store);
     this.number = 0;
     this.appStore.store.subscribe(() => {
-      this.number = this.appStore.store.getState();
+      this.number = this.appStore.getNumber();
       console.log('subscribe', this.appStore.store.getState());
     });
   }
