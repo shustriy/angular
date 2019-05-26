@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 
 import { AppStore } from '../services/app.store';
 import * as CounterActions from '../services/counter.actions';
+import * as SchulzActions from '../services/schulz.actions';
 
 @Component({
   selector: 'counter',
@@ -44,5 +45,10 @@ export class CounterComponent {
     if (number>0) {
       this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
     }
+  }
+
+  public onGenerateSchulz() {
+    console.log('onGenerateSchulz', this.appStore.store.getState());
+    this.appStore.store.dispatch({ type: SchulzActions.GENERATE });
   }
 }

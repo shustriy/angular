@@ -5,11 +5,12 @@ import { AppStore } from '../services/app.store';
 import * as SchulzActions from '../services/schulz.actions';
 
 @Component({
-  selector: 'schulz',
-  templateUrl: './schulz.component.html',
-  styleUrls: ['./schulz.component.css']
+  selector: 'timer',
+  templateUrl: './timer.component.html',
+  styleUrls: ['./timer.component.css']
 })
-export class SchulzComponent {
+
+export class TimerComponent {
   public schulz: number[][];
 
   constructor(
