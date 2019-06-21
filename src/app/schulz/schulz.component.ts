@@ -18,10 +18,10 @@ export class SchulzComponent {
   ) {
     console.log('constructor', this.appStore.store);
     this.number = 0;
-    this.appStore.store.subscribe(() => {
-      this.number = this.appStore.store.getState();
-      console.log('subscribe', this.appStore.store.getState());
-    });
+    // this.appStore.store.subscribe(() => {
+    //   this.number = this.appStore.store.getState();
+    //   console.log('subscribe', this.appStore.store.getState());
+    // });
 
     let schulz = [
       1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -72,12 +72,12 @@ export class SchulzComponent {
 
   public onIncrement() {
     console.log('onIncrement', this.appStore.store.getState());
-    this.appStore.store.dispatch({ type: CounterActions.INCREMENT });
+    // this.appStore.store.dispatch({ type: CounterActions.INCREMENT });
   }
 
   public onIncrementOdd() {
     console.log('onIncrementOdd', this.appStore.store.getState());
-    this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
+    // this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
   }
 
   public onIncrementAsync() {
@@ -89,7 +89,7 @@ export class SchulzComponent {
     console.log('onDecrement', this.appStore.store.getState());
     let number: number = this.appStore.getNumber();
     if (number>0) {
-      this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
+      // this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
     }
   }
 }

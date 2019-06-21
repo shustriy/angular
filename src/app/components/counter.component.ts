@@ -21,6 +21,7 @@ export class CounterComponent {
       this.number = this.appStore.getNumber();
       console.log('subscribe', this.appStore.store.getState());
     });
+    this.appStore.state$.subscribe((data) => console.log('subscription', data));
   }
 
   public onIncrement() {

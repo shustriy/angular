@@ -18,6 +18,6 @@ export class AppComponent {
     //   text: 'Read the docs'
     // })
 
-    console.log(this.appStore.store.getState());
+    // console.log(this.appStore.store.getState());
   }
 }

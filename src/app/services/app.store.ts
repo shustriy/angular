@@ -76,6 +76,19 @@ export class AppStore {
         return this.appStore;
     }
 
+    get state$() {
+        return this.getState$(this.appStore);
+    }
+
+    private getState$(store) {
+        return new Observable((observer) => {
+           observer.next(store.getState()) ;
+
+           const unsubscribe = store.subscribe(() => observer.next(store.getState()));
+           return unsubscribe;
+        });
+    }
+
     public getNumber() {
         const state = this.appStore.getState();
         return state['counterReducer'];
