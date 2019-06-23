@@ -28,13 +28,13 @@ export class AppStore {
             console.log('counterReducer', action, state);
             switch (action.type) {
                 case CounterActions.INCREMENT:
-                    console.log('INC');
+                    //console.log('INC');
                     return ++state;
                 case CounterActions.DECREMENT:
                     console.log('DEC');
                     return --state;
                 default:
-                    console.log('DEFAULT');
+                    //console.log('DEFAULT');
                     return state;
             }
         };
@@ -77,14 +77,19 @@ export class AppStore {
     }
 
     get state$() {
-        return this.getState$(this.appStore);
+        const state$ = this.getState$(this.appStore);
+        return state$;
     }
 
     private getState$(store) {
         return new Observable((observer) => {
            observer.next(store.getState()) ;
 
-           const unsubscribe = store.subscribe(() => observer.next(store.getState()));
+           const unsubscribe = store.subscribe(() => {
+               console.log('subscribe');
+               observer.next(store);
+           });
+           console.log('unsubscribe', unsubscribe);
            return unsubscribe;
         });
     }

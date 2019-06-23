@@ -15,17 +15,19 @@ export class CounterComponent {
   constructor(
     protected appStore: AppStore
   ) {
-    console.log('constructor', this.appStore.store);
+    //console.log('constructor', this.appStore.store);
     this.number = 0;
     this.appStore.store.subscribe(() => {
       this.number = this.appStore.getNumber();
-      console.log('subscribe', this.appStore.store.getState());
+      //console.log('subscribe', this.appStore.store.getState());
     });
-    this.appStore.state$.subscribe((data) => console.log('subscription', data));
+    this.appStore.state$.subscribe((data) => console.log('s1'));
+    this.appStore.state$.subscribe((data) => console.log('s2'));
   }
 
   public onIncrement() {
-    console.log('onIncrement', this.appStore.store.getState());
+    //console.log('onIncrement', this.appStore.store.getState());
+
     this.appStore.store.dispatch({ type: CounterActions.INCREMENT });
   }
 
