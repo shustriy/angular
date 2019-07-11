@@ -1,6 +1,6 @@
 import * as CounterActions from '../counter.actions';
-export const counterReducer = (state: number = 0, action) => {
-    console.log('counterReducer', action, state);
+export const counter = (state: number = 0, action) => {
+    //console.log('counterReducer', action, state);
     switch (action.type) {
         case CounterActions.INCREMENT:
             console.log('INC');

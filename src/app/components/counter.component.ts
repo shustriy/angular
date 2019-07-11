@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {Observable} from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { AppStore } from '../services/app.store';
 import * as CounterActions from '../services/counter.actions';
@@ -18,19 +19,19 @@ export class CounterComponent {
   ) {
     console.log('constructor', this.appStore.store);
     this.number = 0;
-    this.appStore.store.subscribe(() => {
-      this.number = this.appStore.getNumber();
-      console.log('subscribe', this.appStore.store.getState());
+    this.appStore.getNumberStream().subscribe((number) => {
+      this.number = number;
+      console.log('subscribe number', number);
     });
   }
 
   public onIncrement() {
-    console.log('onIncrement', this.appStore.store.getState());
+
     this.appStore.store.dispatch({ type: CounterActions.INCREMENT });
   }
 
   public onIncrementOdd() {
-    console.log('onIncrementOdd', this.appStore.store.getState());
+
     this.appStore.store.dispatch({ type: CounterActions.INCREMENT_ODD });
   }
 
@@ -41,10 +42,13 @@ export class CounterComponent {
 
   public onDecrement() {
     console.log('onDecrement', this.appStore.store.getState());
-    let number: number = this.appStore.getNumber();
-    if (number>0) {
-      this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
-    }
+    this.appStore.getNumberStream().pipe(
+      take(1)
+    ).subscribe(number => {
+      if (number>0) {
+        this.appStore.store.dispatch({ type: CounterActions.DECREMENT });
+      }
+    });
   }
 
   public onGenerateSchulz() {

@@ -17,7 +17,7 @@ export class SchulzComponent {
   ) {
     this.appStore.store.subscribe(() => {
       console.log('SUBSCRIBE getSchulz');
-      this.schulz = this.appStore.getSchulz();
+      this.schulz = [];
     });
     this.appStore.store.dispatch({ type: SchulzActions.GENERATE });
   }

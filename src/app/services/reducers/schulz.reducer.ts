@@ -40,7 +40,7 @@ const createSchulz = () => {
     return convertFlat(schulz);
 };
 
-export const schulzReducer = (state: number[] = [], action: {type: string} = {type: SchulzActions.GENERATE}) => {
+export const schulz = (state: number[] = [], action: {type: string} = {type: SchulzActions.GENERATE}) => {
     console.log('schulzReducer', action, state);
     switch (action.type) {
         case SchulzActions.GENERATE:
