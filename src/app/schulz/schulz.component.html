@@ -1,10 +1,8 @@
-<div style="margin-top: 10px;">
-    <div class="schulz">
-        <div class="container">
-            <div *ngFor="let row of schulz" class="row">
-                <div *ngFor="let col of row" class="col-sm-1 col-schulz">
-                    {{col}}
-                </div>
+<div class="schulz">
+    <div class="container">
+        <div *ngFor="let row of schulz" class="row">
+            <div *ngFor="let col of row" class="col-md-4 col-schulz">
+                {{col}}
             </div>
         </div>
     </div>

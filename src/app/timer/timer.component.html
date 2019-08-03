@@ -1,11 +1,3 @@
-<div style="margin-top: 10px;">
-    <div class="schulz">
-        <div class="container">
-            <div *ngFor="let row of schulz" class="row">
-                <div *ngFor="let col of row" class="col-sm-1 col-schulz">
-                    {{col}}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="timer">
+    <h4>Timer: {{transformToTime(timer)}}</h4>
 </div>

@@ -3,15 +3,14 @@ import { ofType } from 'redux-observable';
 import { of } from 'rxjs';
 
 import * as TimerActions from '../timer.actions';
-import * as SchulzActions from '../schulz.actions';
 
 const result$ = of(
-    { type: SchulzActions.GENERATE },
-    { type: TimerActions.RESTART }
+    { type: TimerActions.STOP },
+    { type: TimerActions.RESET },
+    { type: TimerActions.START }
 );
-
-export const schulzEpic = (action$, store) =>
+export const timerEpic = (action$, store) =>
     action$.pipe(
-        ofType(SchulzActions.REFRESH),
+        ofType(TimerActions.RESTART),
         switchMap(() => result$)
     );

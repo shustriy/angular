@@ -1,22 +1,17 @@
 import { Observable } from 'rxjs';
-import { filter, map, distinctUntilChanged, tap } from 'rxjs/operators';
+import { filter, map, distinctUntilChanged } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import * as Immutable from 'immutable';
-import 'rxjs/ajax';
-import 'rxjs/observable/of';
-import 'rxjs/operator/catch';
-import 'rxjs/operator/debounceTime';
-import 'rxjs/operator/mergeMap';
-import 'rxjs/operator/startWith';
 
-import { counter } from './reducers/counter.reducer';
+import { timer } from './reducers/timer.reducer';
 import { schulz } from './reducers/schulz.reducer';
-import { incrementOddEpic } from './epics/counter.epic';
+import { timerEpic } from './epics/timer.epic';
+import { schulzEpic } from './epics/schulz.epic';
 import * as SchulzActions from './schulz.actions';
-import * as CounterActions from './counter.actions';
+import * as TimerActions from './timer.actions';
 
 @Injectable()
 export class AppStore {
@@ -29,18 +24,15 @@ export class AppStore {
         return this.appStore;
     }
 
-    get state$() {
-        return this.appStoreState$;
-    }
-
     constructor() {
         const rootReducer = combineReducers({
-            counter,
+            timer,
             schulz
         });
 
         const rootEpic = combineEpics(
-            incrementOddEpic
+            timerEpic,
+            schulzEpic
         );
 
         const epicMiddleware = createEpicMiddleware();
@@ -53,7 +45,6 @@ export class AppStore {
         );
 
         this.initStateStream();
-
         epicMiddleware.run(rootEpic);
     }
 
@@ -67,17 +58,18 @@ export class AppStore {
         this.appStoreState$ = state$;
     }
 
-    public getNumberStream() {
+    public getTimerStream() {
         return this.appStoreState$.pipe(
-            tap(state => console.log('tap', state)),
-            map(state => state['counter'])
+            distinctUntilChanged(),
+            map(state => state['timer'])
         );
     }
 
     public getSchulzStream() {
         return this.appStoreState$.pipe(
             distinctUntilChanged(),
-            map(state => state['schulz'])
+            map(state => state['schulz']),
+            filter(data => +data.length === 5)
         );
     }
 
